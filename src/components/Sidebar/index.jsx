@@ -10,7 +10,7 @@ export default function Sidebar({ toggleSidebar, className }) {
 
 
     return (
-        <aside className={`w-80 bg-slate-900 h-screen py-8 relative ${className}`}>
+        <aside className={`w-80 bg-cyan-500 dark:bg-slate-900 h-screen py-8 relative ${className}`}>
             <button className='text-white absolute top-1 right-4 text-2xl' onClick={toggleSidebar}>
                 &times;
             </button>

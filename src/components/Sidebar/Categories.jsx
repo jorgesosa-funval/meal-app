@@ -20,9 +20,9 @@ export default function Categories() {
     }, [])
 
     return (
-        <ul className='w-full text-white px-6 pt-4'>
+        <ul className='w-full text-black  dark:text-white font-medium px-6 pt-4'>
             {
-                categories.map((category) =>
+                categories.slice(0,10).map((category) =>
                     <CategoryItem
                         key={category.idCategory}
                         category={category}
