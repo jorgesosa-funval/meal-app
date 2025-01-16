@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.carg-grid{
+ grid-template-columns: repeat(auto-fit, 18rem);
+ grid-template-rows: repeat(auto-fit, 20rem);
+}
