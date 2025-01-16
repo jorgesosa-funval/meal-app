@@ -1,85 +1,28 @@
 import React, { useEffect, useState } from 'react'
-
-export async function fetchData(url) {
-  const response = await fetch(url)
-  const data = await response.json()
-  return data
-}
+import { Drawer } from './components/Drawer'
+import { SearchInput } from './components/SearchInput'
+import {MealList} from "./components/MealList"
 
 export default function App() {
+  const [category, setCategory] = useState('Beef')
+
   return (
     <div className='w-full h-screen flex overflow-y-hidden'>
-      <Drawer />
+      <Drawer 
+        onClick={setCategory}
+      />
       <div className='w-full h-full'>
         <Appbar />
         <SearchInput
           inputClassName="max-w-96"
           placeholder="Search Meal"
         />
-        <MealList />
+        <MealList 
+          category={category}
+        />
         {/* <MealDetails /> */}
       </div>
     </div>
-  )
-}
-
-export function Drawer() {
-  const url = "https://www.themealdb.com/api/json/v1/1/categories.php"
-  const [categories, setCategories] = useState([])
-
-  useEffect(() => {
-    fetchData(url)
-      .then(data => setCategories(data.categories))
-  }, [])
-
-  return (
-    <aside className='w-80 h-full bg-amber-100/80 flex flex-col flex-shrink-0'>
-
-      <SearchInput
-        placeholder="Search Category"
-      />
-
-      <ul className='w-full flex-grow p-4'>
-        {categories &&
-          categories.map(category =>
-            <CategoryItem 
-              category ={category}
-            />
-          )
-        }
-      </ul>
-
-    </aside>
-  )
-
-
-}
-
-function SearchInput({ inputClassName, placeholder }) {
-  return (
-    <div className='w-full h-20 flex justify-center items-center'>
-      <input
-        type="text"
-        placeholder={placeholder}
-        className={`bg-slate-600 h-9 rounded-sm px-2 w-4/5 focus:outline-blue-600 ${inputClassName}`}
-      />
-    </div>
-  )
-}
-
-export function CategoryItem({category}) {
-
-  const {idCategory, strCategory, strCategoryThumb} = category
-
-  return (
-    <li className='flex items-center justify-between p-2 font-bold cursor-pointer hover:bg-slate-950/10 rounded-sm '>
-      <p>{strCategory}</p>
-      <img
-        src={strCategoryThumb}
-        alt="text"
-        className='size-12 rounded-full'
-      />
-    </li>
   )
 }
 
@@ -97,30 +40,9 @@ export function Appbar() {
   )
 }
 
-export function MealList() {
-  return (
-    <div className='w-full h-[calc(100vh-9rem)] bg-gray-50 p-8 grid carg-grid justify-center gap-4 overflow-y-auto' >
-      <MealCard />
-      <MealCard />
-      <MealCard />
-    </div>
-  )
-}
 
-export function MealCard() {
-  return (
-    <div className='w-72 h-80 bg-red-600 rounded-sm overflow-hidden relative group cursor-pointer'>
-      <img
-        src="https://picsum.photos/420/540"
-        alt=""
-        className='w-full h-full object-cover'
-      />
-      <p className='text-white absolute bottom-0 bg-black/50 p-4 text-center text-xl font-semibold translate-y-96 group-hover:translate-y-0 transition-all duration-1000'>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      </p>
-    </div>
-  )
-}
+
+
 
 export function MealDetails() {
   return (
