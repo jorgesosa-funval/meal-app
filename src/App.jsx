@@ -1,23 +1,35 @@
 import React, { useEffect, useState } from 'react'
 import { Drawer } from './components/Drawer'
 import { SearchInput } from './components/SearchInput'
-import {MealList} from "./components/MealList"
+import { MealList } from "./components/MealList"
+import { Appbar } from './components/Appbar'
 
 export default function App() {
   const [category, setCategory] = useState('Beef')
-
+  const [meal, setMeal] = useState("")
+  const [openDrawer, setOpenDrawer] = useState(false)
+  const toggleDrawer =  () =>{
+    setOpenDrawer((prevState) => !prevState)
+  }
   return (
     <div className='w-full h-screen flex overflow-y-hidden'>
-      <Drawer 
-        onClick={setCategory}
-      />
+      {(openDrawer && !meal)  &&
+        <Drawer
+          onClick={setCategory}
+          onClose = {toggleDrawer}
+        />
+      }
+
       <div className='w-full h-full'>
-        <Appbar />
+        <Appbar 
+          onClick = {toggleDrawer}
+          category = {category}
+        />
         <SearchInput
           inputClassName="max-w-96"
           placeholder="Search Meal"
         />
-        <MealList 
+        <MealList
           category={category}
         />
         {/* <MealDetails /> */}
@@ -26,19 +38,7 @@ export default function App() {
   )
 }
 
-export function Appbar() {
-  return (
-    <header className='h-16 bg-cyan-700 flex px-6 items-center justify-between'>
-      <button className='font-bold text-2xl text-amber-50'>
-        &#9776;
-      </button>
 
-      <h4 className='font-bold text-xl'>
-        category name
-      </h4>
-    </header>
-  )
-}
 
 
 
